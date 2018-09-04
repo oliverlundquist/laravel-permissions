@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Policies\PostPolicy;
+use App\Policies\ClassifiedDocsPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('read-posts', PostPolicy::class . '@read');
+        Gate::define('create-posts', PostPolicy::class . '@create');
+        Gate::define('delete-posts', PostPolicy::class . '@delete');
+
+        Gate::define('read-classified-documents', ClassifiedDocsPolicy::class . '@read');
     }
 }

@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isSuperAdmin()
+    {
+        // just as a test to override ClassifiedDocsPolicy logic
+        if ($this->getAttribute('id') === 1) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => ['can:read-posts']], function () {
+    Route::get('/list-of-articles', function () {
+        return 'I can view this, woohoo! 🙌';
+    });
+});
+// top secret
+Route::group(['middleware' => ['can:read-classified-documents']], function () {
+    Route::get('/area51', function () {
+        return 'extraterrestrial stuff 👽';
+    });
+});
+
+Auth::routes();

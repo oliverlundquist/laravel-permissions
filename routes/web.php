@@ -14,3 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => ['role:super-admin|writer']], function () {
+    Route::get('/list-of-articles', function () {
+        return 'I can view this, woohoo! 🙌';
+    });
+});
+
+// top secret
+Route::group(['middleware' => ['role:super-admin']], function () {
+    Route::get('/area51', function () {
+        return 'extraterrestrial stuff 👽';
+    });
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
